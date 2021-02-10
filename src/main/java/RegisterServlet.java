@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class LoginServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
@@ -15,8 +15,9 @@ public class LoginServlet extends HttpServlet {
 
         String name=request.getParameter("name");
         String password=request.getParameter("password");
+        String password2 =request.getParameter("password2");
 
-        if(password.equals("123")){
+        if(password.equals(password2)){
             out.print("<nav class=\"navbar navbar-expand-sm bg-dark navbar-dark\">\n" +
                     "    <a class=\"navbar-brand\" href=\"#\">LAB 2</a>\n" +
                     "    <ul class=\"navbar-nav\">\n" +
@@ -31,13 +32,13 @@ public class LoginServlet extends HttpServlet {
                     "        </li>\n" +
                     "    </ul>\n" +
                     "</nav>");
-            out.print("Welcome, "+name);
+            out.print("Welcome, "+name+ "! Registration successful!");
             HttpSession session=request.getSession();
             session.setAttribute("name",name);
         }
         else{
-            out.print("Sorry, username or password error!");
-            request.getRequestDispatcher("login.html").include(request, response);
+            out.print("Error confirmation!");
+            request.getRequestDispatcher("register.html").include(request, response);
         }
         out.close();
     }
